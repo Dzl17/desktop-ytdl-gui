@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 public class BaseFrame extends JFrame {
+    private static boolean dark;
+
     public BaseFrame() {
         //1.- Initial config
         setTitle("Youtube Downloader");
@@ -50,12 +52,22 @@ public class BaseFrame extends JFrame {
     private void addJMenu() {
         JMenuBar menuBar = new JMenuBar();
         JMenu testMenu = new JMenu("File");
+        JCheckBoxMenuItem darkThemeMenuItem = new JCheckBoxMenuItem("Dark theme");
         JMenuItem exitMenuItem = new JMenuItem("Exit");
 
+        testMenu.add(darkThemeMenuItem);
         testMenu.add(exitMenuItem);
         menuBar.add(testMenu);
 
         setJMenuBar(menuBar);
+
+        darkThemeMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dark = !dark;
+                refreshUI();
+            }
+        });
 
         exitMenuItem.addActionListener(new ActionListener() {
             @Override
@@ -66,18 +78,34 @@ public class BaseFrame extends JFrame {
         });
     }
 
+    private void refreshUI() {
+        try {
+            if (isDark()) UIManager.setLookAndFeel(new FlatDarkLaf());
+            else UIManager.setLookAndFeel(new FlatLightLaf());
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
+            UIManager.put( "MenuItem.selectionType", "underline" );
             JFrame.setDefaultLookAndFeelDecorated( true );
             JDialog.setDefaultLookAndFeelDecorated( true );
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
+
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new BaseFrame();
             }
         });
+    }
+
+    public static boolean isDark() {
+        return dark;
     }
 }

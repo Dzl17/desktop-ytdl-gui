@@ -1,5 +1,6 @@
 package gui;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,7 +21,14 @@ public class FilePathPanel extends JPanel {
         pathPanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,0));
 
         JPanel buttonPanel = new JPanel(new FlowLayout());
-        JButton fileChooserButton = new JButton("...");
+        JButton fileChooserButton = new JButton();
+        try {
+            Image img = ImageIO.read(new File("assets/folderIconGray.png"));
+            fileChooserButton.setIcon(new ImageIcon(img));
+        } catch (Exception ex) {
+            fileChooserButton.setText("...");
+        }
+
         JButton downloadButton = new JButton("Download");
 
         buttonPanel.add(fileChooserButton);
