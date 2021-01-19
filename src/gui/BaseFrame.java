@@ -3,24 +3,77 @@ package gui;
 import com.formdev.flatlaf.*;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 public class BaseFrame extends JFrame {
     public BaseFrame() {
-        try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
-
-        setTitle("Youtube downloader");
+        //1.- Initial config
+        setTitle("Youtube Downloader");
+        setSize(800, 400);
         setLocationRelativeTo(null);
-        setSize(500, 300);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setLayout(new BorderLayout());
+        setUndecorated(true);
+        addJMenu();
+
+        //2.- Components
+        JPanel urlPanel = new JPanel();
+        urlPanel.setLayout(new BorderLayout());
+        urlPanel.setBorder(BorderFactory.createEmptyBorder(7,5,5,5));
+
+        JLabel urlLabel = new JLabel("Video URL: ");
+        urlLabel.setBorder(BorderFactory.createEmptyBorder(0,5,0,5));
+        JTextField urlTextField = new JTextField();
+        urlPanel.add(urlLabel, BorderLayout.LINE_START);
+        urlPanel.add(urlTextField, BorderLayout.CENTER);
+
+        JPanel dataDownloadPanel = new JPanel();
+        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane.addTab("Audio Download", new AudioDownloadPanel());
+        tabbedPane.addTab("Video Download", new VideoDownloadPanel());
+
+        tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
+        tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
+
+        dataDownloadPanel.add(tabbedPane);
+
+        add(urlPanel, BorderLayout.NORTH);
+        add(tabbedPane, BorderLayout.CENTER);
+        add(new FilePathPanel(), BorderLayout.SOUTH);
 
         setVisible(true);
     }
 
+    private void addJMenu() {
+        JMenuBar menuBar = new JMenuBar();
+        JMenu testMenu = new JMenu("File");
+        JMenuItem exitMenuItem = new JMenuItem("Exit");
+
+        testMenu.add(exitMenuItem);
+        menuBar.add(testMenu);
+
+        setJMenuBar(menuBar);
+
+        exitMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                System.exit(0);
+            }
+        });
+    }
+
     public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+            JFrame.setDefaultLookAndFeelDecorated( true );
+            JDialog.setDefaultLookAndFeelDecorated( true );
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new BaseFrame();
