@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 public class BaseFrame extends JFrame {
-    private static boolean dark;
+    private static boolean dark = true;
 
     public BaseFrame() {
         //1.- Initial config
@@ -90,7 +90,7 @@ public class BaseFrame extends JFrame {
 
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
+            UIManager.setLookAndFeel(new FlatDarkLaf());
             UIManager.put( "MenuItem.selectionType", "underline" );
             JFrame.setDefaultLookAndFeelDecorated( true );
             JDialog.setDefaultLookAndFeelDecorated( true );
