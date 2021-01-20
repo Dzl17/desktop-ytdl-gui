@@ -15,6 +15,7 @@ public class BaseFrame extends JFrame {
         //1.- Initial config
         setTitle("Youtube Downloader");
         setSize(800, 400);
+        //setMinimumSize(new Dimension());
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -51,21 +52,30 @@ public class BaseFrame extends JFrame {
 
     private void addJMenu() {
         JMenuBar menuBar = new JMenuBar();
-        JMenu testMenu = new JMenu("File");
+
+        //File menu
+        JMenu fileMenu = new JMenu("File");
         JCheckBoxMenuItem darkThemeMenuItem = new JCheckBoxMenuItem("Dark theme");
+        JMenuItem settingsMenuItem = new JMenuItem("Settings");
         JMenuItem exitMenuItem = new JMenuItem("Exit");
-
-        testMenu.add(darkThemeMenuItem);
-        testMenu.add(exitMenuItem);
-        menuBar.add(testMenu);
-
-        setJMenuBar(menuBar);
+        fileMenu.add(darkThemeMenuItem);
+        fileMenu.addSeparator();
+        fileMenu.add(settingsMenuItem);
+        fileMenu.add(exitMenuItem);
+        menuBar.add(fileMenu);
 
         darkThemeMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dark = !dark;
                 refreshUI();
+            }
+        });
+
+        settingsMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
 
@@ -76,6 +86,21 @@ public class BaseFrame extends JFrame {
                 System.exit(0);
             }
         });
+
+        //About menu
+        JMenu helpMenu = new JMenu("Help");
+        JMenuItem aboutMenuItem = new JMenuItem("About");
+        helpMenu.add(aboutMenuItem);
+        menuBar.add(helpMenu);
+
+        aboutMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        setJMenuBar(menuBar);
     }
 
     private void refreshUI() {

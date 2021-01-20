@@ -28,7 +28,6 @@ public class FilePathPanel extends JPanel {
         } catch (Exception ex) {
             fileChooserButton.setText("...");
         }
-
         JButton downloadButton = new JButton("Download");
 
         buttonPanel.add(fileChooserButton);
