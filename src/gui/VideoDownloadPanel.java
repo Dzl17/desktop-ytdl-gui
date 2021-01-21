@@ -2,14 +2,9 @@ package gui;
 
 import javax.swing.*;
 
+import static utils.DataDownloadUtils.*;
+
 public class VideoDownloadPanel extends JPanel {
-    /**
-     * STUFF:
-     * -Format
-     * -Quality
-     * -Embedded subs (--embed-subs)
-     * --merge-output-format FORMAT
-     */
     public VideoDownloadPanel() {
 
     }

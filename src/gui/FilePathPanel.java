@@ -9,6 +9,8 @@ import java.io.File;
 
 public class FilePathPanel extends JPanel {
     File fileDir;
+    JTextField pathTextField;
+    JButton downloadButton;
 
     public FilePathPanel() {
         super(new BorderLayout());
@@ -16,7 +18,7 @@ public class FilePathPanel extends JPanel {
 
         //Components
         JPanel pathPanel = new JPanel(new BorderLayout());
-        JTextField pathTextField = new JTextField();
+        pathTextField = new JTextField();
         pathPanel.add(pathTextField);
         pathPanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,0));
 
@@ -28,7 +30,7 @@ public class FilePathPanel extends JPanel {
         } catch (Exception ex) {
             fileChooserButton.setText("...");
         }
-        JButton downloadButton = new JButton("Download");
+        downloadButton = new JButton("Download");
 
         buttonPanel.add(fileChooserButton);
         buttonPanel.add(downloadButton);
@@ -44,7 +46,7 @@ public class FilePathPanel extends JPanel {
 
                 if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
                     fileDir = fileChooser.getSelectedFile();
-                    pathTextField.setText(fileDir.getAbsolutePath());
+                    pathTextField.setText(fileDir.getAbsolutePath().replace('\\', '/'));
                 }
                 else {
                     fileDir = null;

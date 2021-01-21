@@ -1,14 +1,12 @@
 package gui;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class AudioDownloadPanel extends JPanel {
-    /**
-     * STUFF:
-     * -Format
-     * -Audio quality
-     */
     public AudioDownloadPanel() {
+        setLayout(new BorderLayout());
 
+        JPanel fileTypePanel = new JPanel();
     }
 }
