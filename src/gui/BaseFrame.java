@@ -53,6 +53,13 @@ public class BaseFrame extends JFrame {
         searchButtonPanel.setBorder(BorderFactory.createEmptyBorder(0,5,0,0));
         JButton searchButton = new JButton("Search");
         searchButtonPanel.add(searchButton);
+        searchButton.addActionListener(e -> {
+            videoDataPanel.thumbnailImagePanel.setImage(getVideoThumbnailURL(urlTextField.getText()));
+            String[] data = getVideoInfo(urlTextField.getText());
+            videoDataPanel.videoTitleInfoLabel.setText(data[0]);
+            videoDataPanel.videoLengthInfoLabel.setText(data[1]);
+            JOptionPane.showMessageDialog(null, data[0]);
+        });
         urlPanel.add(urlLabel, BorderLayout.LINE_START);
         urlPanel.add(urlTextField, BorderLayout.CENTER);
         urlPanel.add(searchButtonPanel, BorderLayout.LINE_END);
@@ -143,6 +150,7 @@ public class BaseFrame extends JFrame {
         videoDataPanel.setBorder(BorderFactory.createLineBorder(Color.RED, 1)); //TODO
         filePathPanel = new FilePathPanel();
 
+        //Listeners
         filePathPanel.downloadButton.addActionListener(e -> {
             System.out.println(urlTextField.getText());
             if (tabbedPane.getSelectedIndex() == 1) downloadBestVideo(urlTextField.getText(), filePathPanel.pathTextField.getText() + "/%(title)s.%(ext)s", "mp4");

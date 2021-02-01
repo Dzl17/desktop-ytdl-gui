@@ -3,8 +3,6 @@ package gui;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 
 public class FilePathPanel extends JPanel {
@@ -36,28 +34,18 @@ public class FilePathPanel extends JPanel {
         buttonPanel.add(downloadButton);
 
         //Listeners
-        fileChooserButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
+        fileChooserButton.addActionListener(e -> {
+            JFileChooser fileChooser = new JFileChooser();
 
-                fileChooser.setDialogTitle("Choose path...");
-                fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            fileChooser.setDialogTitle("Choose path...");
+            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
-                if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-                    fileDir = fileChooser.getSelectedFile();
-                    pathTextField.setText(fileDir.getAbsolutePath().replace('\\', '/'));
-                }
-                else {
-                    fileDir = null;
-                }
+            if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                fileDir = fileChooser.getSelectedFile();
+                pathTextField.setText(fileDir.getAbsolutePath().replace('\\', '/'));
             }
-        });
-
-        downloadButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //execDownload();
+            else {
+                fileDir = null;
             }
         });
 
